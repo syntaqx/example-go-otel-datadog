@@ -5,6 +5,7 @@ import (
 	"net"
 	"net/http"
 	"os"
+	"time"
 
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
@@ -55,8 +56,13 @@ func main() {
 	}))
 
 	r.Get("/", func(w http.ResponseWriter, r *http.Request) {
-		span, _ := opentracing.StartSpanFromContext(r.Context(), "IndexHandler")
+		span, ctx := opentracing.StartSpanFromContext(r.Context(), "IndexHandler")
 		defer span.Finish()
+
+		// Example of how to use the context with the span
+		dbCall, _ := opentracing.StartSpanFromContext(ctx, "DBCall")
+		time.Sleep(100 * time.Millisecond)
+		dbCall.Finish()
 
 		io.WriteString(w, "Hello, World!")
 	})
