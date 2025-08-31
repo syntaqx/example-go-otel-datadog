@@ -3,7 +3,7 @@ module github.com/syntaqx/example-go-otel-datadog
 go 1.22.5
 
 require (
-	github.com/go-chi/chi/v5 v5.0.10
+	github.com/go-chi/chi/v5 v5.2.2
 	github.com/go-chi/httptracer v0.3.0
 	github.com/opentracing/opentracing-go v1.2.0
 	go.uber.org/zap v1.27.0
